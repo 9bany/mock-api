@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"9bany/mapi/api"
+	mock "9bany/mapi/server/api"
 	"bufio"
 	"os"
 
@@ -14,7 +14,7 @@ func init() {
 
 var serveCmd = &cobra.Command{
 	Use:   "serve",
-	Short: "Print the version number of Bit",
+	Short: "Serve a server that return your data in os.stdin.",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		scanner := bufio.NewScanner(os.Stdin)
@@ -23,7 +23,7 @@ var serveCmd = &cobra.Command{
 		for scanner.Scan() {
 			data += scanner.Text()
 		}
-		server := api.NewServer([]byte(data))
+		server := mock.NewServer([]byte(data))
 		server.Run()
 	},
 }

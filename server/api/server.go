@@ -1,8 +1,7 @@
-package api
+package mock
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -33,7 +32,7 @@ func (s *Server) MockHandle(c *gin.Context) {
 	var dataResp map[string]interface{}
 	err := json.Unmarshal(s.data, &dataResp)
 	if err != nil {
-		fmt.Println(err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, dataResp)
